@@ -5,12 +5,19 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"runtime"
 )
 
 func main() {
 
 	srcPath := filepath.Join(runtime.GOROOT(), "src")
+
+	if strings.HasPrefix(runtime.Version(), "1.1") ||
+		strings.HasPrefix(runtime.Version(), "1.2") ||
+		strings.HasPrefix(runtime.Version(), "1.3") {
+		srcPath = filepath.Join(srcPath, "pkg")
+	}
 
 	var res []string
 	err := filepath.Walk(srcPath, func(path string, info os.FileInfo, err error) error {
