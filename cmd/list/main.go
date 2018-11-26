@@ -13,9 +13,9 @@ func main() {
 
 	srcPath := filepath.Join(runtime.GOROOT(), "src")
 
-	if strings.HasPrefix(runtime.Version(), "1.1") ||
-		strings.HasPrefix(runtime.Version(), "1.2") ||
-		strings.HasPrefix(runtime.Version(), "1.3") {
+	if strings.HasSuffix(runtime.Version(), "1.1") ||
+		strings.HasSuffix(runtime.Version(), "1.2") ||
+		strings.HasSuffix(runtime.Version(), "1.3") {
 		srcPath = filepath.Join(srcPath, "pkg")
 	}
 
