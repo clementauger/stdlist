@@ -8,7 +8,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"sort"
 	"strings"
 )
 
@@ -20,14 +19,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	pathOccurences := map[string]int{}
-
-	allVersions := map[string][]string{}
+	allPaths := map[string][]string{}
 
 	for _, fp := range res {
 		v := strings.TrimSuffix(fp, ".txt")
 		v = strings.TrimPrefix(v, "data/")
-		allVersions[v] = []string{}
+
 		(func(fp, v string) {
 			f, err := os.Open(fp)
 			if err != nil {
@@ -37,29 +34,13 @@ func main() {
 			sc := bufio.NewScanner(f)
 			for sc.Scan() {
 				l := sc.Text()
-				allVersions[v] = append(allVersions[v], l)
-				pathOccurences[l]++
+				if _, ok := allPaths[l]; !ok {
+					allPaths[l] = []string{}
+				}
+				allPaths[l] = append(allPaths[l], v)
 			}
 		})(fp, v)
 	}
-
-	var redundants []string
-	for p, c := range pathOccurences {
-		if c == len(allVersions) {
-			redundants = append(redundants, p)
-			for v, ap := range allVersions {
-				n := []string{}
-				for i := 0; i < len(ap); i++ {
-					if ap[i] != p {
-						n = append(n, ap[i])
-					}
-				}
-				allVersions[v] = n
-			}
-		}
-	}
-
-	sort.Strings(redundants)
 
 	var out bytes.Buffer
 
@@ -67,17 +48,18 @@ func main() {
 	fmt.Fprintln(&out, "")
 	fmt.Fprintln(&out, "import (\"strings\")")
 	fmt.Fprintln(&out, "")
-	fmt.Fprintln(&out, "var rawdata = map[string]string{")
-	fmt.Fprintf(&out, "   %q: %q,\n", "common", strings.Join(redundants, ","))
-	for v, a := range allVersions {
-		sort.Strings(a)
-		fmt.Fprintf(&out, "    %q: %q,\n", v, strings.Join(a, ","))
+	fmt.Fprintln(&out, "var rawdata = map[string][]string{")
+	for p, vs := range allPaths {
+		for i, v := range vs {
+			vs[i] = fmt.Sprintf("%q", v)
+		}
+		fmt.Fprintf(&out, "    %q: []string{%v},\n", p, strings.Join(vs, ","))
 	}
 	fmt.Fprintln(&out, "}")
 	fmt.Fprintln(&out, "")
 	fmt.Fprintln(&out, "func init(){")
 	fmt.Fprintln(&out, "  for k,v:=range rawdata{")
-	fmt.Fprintln(&out, "    data[k]=strings.Split(v, \",\")")
+	fmt.Fprintln(&out, "    data[k]=v")
 	fmt.Fprintln(&out, "  }")
 	fmt.Fprintln(&out, "}")
 
