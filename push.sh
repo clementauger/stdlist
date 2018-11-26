@@ -4,4 +4,4 @@ git config --global user.name "Travis CI"
 git add -A
 git commit --message "Travis build: go ${TRAVIS_GO_VERSION}"
 git remote add origin https://clementauger:${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git > /dev/null 2>&1
-git push --quiet --set-upstream origin master
+git push --set-upstream origin master
