@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 	"runtime"
 )
 
@@ -13,9 +12,9 @@ func main() {
 
 	srcPath := filepath.Join(runtime.GOROOT(), "src")
 
-	if strings.HasSuffix(runtime.Version(), "1.1") ||
-		strings.HasSuffix(runtime.Version(), "1.2") ||
-		strings.HasSuffix(runtime.Version(), "1.3") {
+	if runtime.Version() == "go1.1" ||
+		runtime.Version() == "go1.2" ||
+		runtime.Version() == "go1.3" {
 		srcPath = filepath.Join(srcPath, "pkg")
 	}
 
