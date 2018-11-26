@@ -49,7 +49,7 @@ func main() {
 
 	fmt.Fprintln(&out, "package stdlist")
 	fmt.Fprintln(&out, "")
-	fmt.Fprintln(&out, "var rawdata = map[string][]string{")
+	fmt.Fprintln(&out, "var data = map[string][]string{")
 	sort.Strings(orderedPaths)
 	for _, p := range orderedPaths {
 		vs := allPaths[p]
@@ -60,11 +60,6 @@ func main() {
 	}
 	fmt.Fprintln(&out, "}")
 	fmt.Fprintln(&out, "")
-	fmt.Fprintln(&out, "func init(){")
-	fmt.Fprintln(&out, "  for k,v:=range rawdata{")
-	fmt.Fprintln(&out, "    data[k]=v")
-	fmt.Fprintln(&out, "  }")
-	fmt.Fprintln(&out, "}")
 
 	o, err := format.Source(out.Bytes())
 	if err != nil {
