@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 )
 
@@ -20,6 +21,7 @@ func main() {
 	}
 
 	allPaths := map[string][]string{}
+	orderedPaths := []string{}
 
 	for _, fp := range res {
 		v := strings.TrimSuffix(fp, ".txt")
@@ -36,6 +38,7 @@ func main() {
 				l := sc.Text()
 				if _, ok := allPaths[l]; !ok {
 					allPaths[l] = []string{}
+					orderedPaths = append(orderedPaths, l)
 				}
 				allPaths[l] = append(allPaths[l], v)
 			}
@@ -47,7 +50,9 @@ func main() {
 	fmt.Fprintln(&out, "package stdlist")
 	fmt.Fprintln(&out, "")
 	fmt.Fprintln(&out, "var rawdata = map[string][]string{")
-	for p, vs := range allPaths {
+	sort.Strings(orderedPaths)
+	for _, p := range orderedPaths {
+		vs := allPaths[p]
 		for i, v := range vs {
 			vs[i] = fmt.Sprintf("%q", v)
 		}
