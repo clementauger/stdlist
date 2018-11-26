@@ -13,9 +13,9 @@ go:
 - '1.10'
 - '1.11'
 script:
-- run.sh
+- sh run.sh
 after_success:
-- push.sh
+- sh push.sh
 env:
   global:
     secure: Htwr2yUY8G34kYfPXxL7PN7MWvc+BnVtnA6GoI53H5xO922pL1z+q2jPC5ITH2HKqc16cUNCqNFaPJ7FWo7LZMEX+B5R8jcqTuxNdePN4UnlLvXyznEz7stn2A2PMQDwKAs3E/4QFvc8bNl+2dky7o/A4mjfSmExDl4et+QPqhpwQbpiG9LVzfoqlwjGHWcSjENYtmz4r//SncpjOAxYMHAzLlu++X5Nt6YJrX7i+39PqraIOZuaSqMNHl4uu38xY+Ar4ImnzXlHJeq8sqeQsmMPM1Koj0Q88wGcDfIh33WlAhL3vUIRnKI2FFtsJIIXtL58aN3m/CNGxFMdBSTt8QfXJBYE9RvrW/INESE5Ce71X7cz7vUoPTj8S529VlJWVMW0xiAiHsaXvaCCibCs5pLWy6bpwKLAKu9L9lrL8ypnmZ7v6SZ/gShsq1taCoefmmqiy9BlCpx8oCgass4tVmGdDdRWMevbsoWlNPO1j0sc5wHNRgw7NNTzWvA8KA1vwa9ItV6kUltzzk4ljjbXleIcPJS27QFAB8/qN2eaTe+wkyMgssvw4PkNHDTaWyD6t6Q6FLgquHZfHbs19kNKSJ1N+dzKrpU9LUUSgBO0WPsDfDKRf86yYP692wqAg1QSpqzvFDAPcjCnigHPYlqCUilekne0LtuMqW78kwg8Dao=
