@@ -6,4 +6,4 @@ if [ ! -f ${file} ]; then
   go run cmd/list/main.go > data/${TRAVIS_GO_VERSION}.txt
 fi
 
-go run cmd/merge/main.go > data.go
+# go run cmd/merge/main.go > data.go
