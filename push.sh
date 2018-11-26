@@ -5,4 +5,4 @@ git add -A
 git commit --message "Travis build: go ${TRAVIS_GO_VERSION}"
 git remote add origin https://clementauger:${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git > /dev/null 2>&1
 git push --set-upstream origin master
-git remote -vv
+cat .git/config
