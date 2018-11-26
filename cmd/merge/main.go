@@ -46,8 +46,6 @@ func main() {
 
 	fmt.Fprintln(&out, "package stdlist")
 	fmt.Fprintln(&out, "")
-	fmt.Fprintln(&out, "import (\"strings\")")
-	fmt.Fprintln(&out, "")
 	fmt.Fprintln(&out, "var rawdata = map[string][]string{")
 	for p, vs := range allPaths {
 		for i, v := range vs {
